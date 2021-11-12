@@ -10,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('123456');
 
   // UseContext
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
   const history = useHistory(); // History
 
   // Handle form submit
@@ -19,6 +19,9 @@ const Login = () => {
     login(email, password, history);
   };
 
+  const handleGoogleLogin = () => {
+    loginWithGoogle(history);
+  };
   return (
     <Container fluid='md' className='d-flex justify-content-center align-items-center min-vh-100'>
       <Card style={{ width: '21rem' }} className='shadow-lg p-3'>
@@ -52,6 +55,13 @@ const Login = () => {
             </Link>
             <Button className='mt-2 form-control' variant='primary' type='submit'>
               Login
+            </Button>
+            <Button
+              className='mt-2 form-control'
+              variant='secondary'
+              onClick={handleGoogleLogin}
+            >
+              Google
             </Button>
           </Form>
         </Card.Body>

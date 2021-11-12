@@ -3,16 +3,13 @@ import { useHistory } from 'react-router';
 import useAuth from '../context/AuthContext';
 
 const Users = () => {
-  const { isLogged, setIsLogged } = useAuth();
+  const { isLogged, setIsLogged, logout } = useAuth();
   const history = useHistory();
-  const logout = () => {
-    setIsLogged(false);
-    history.push('/login');
-  };
+
   return (
     <div>
+      <Button variant='primary'>Add new User</Button>
       <h3>Users Page</h3>
-      <Button onClick={logout}>Logout</Button>
     </div>
   );
 };

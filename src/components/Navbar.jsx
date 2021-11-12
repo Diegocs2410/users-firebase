@@ -1,9 +1,14 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import useAuth from '../context/AuthContext';
 
 const Navbar = () => {
-  const { isLogged } = useAuth();
-
+  const { isLogged, setIsLogged, logout } = useAuth();
+  const history = useHistory();
+  const handleLogout = () => {
+    setIsLogged(false);
+    logout();
+    history.push('/login');
+  };
   return (
     <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
       <div className='container'>
@@ -28,7 +33,7 @@ const Navbar = () => {
                 Home
               </NavLink>
             </li>
-            {!isLogged && (
+            {!isLogged ? (
               <>
                 <li className='nav-item'>
                   <NavLink className='nav-link' activeClassName='active' to='/login'>
@@ -38,6 +43,28 @@ const Navbar = () => {
                 <li className='nav-item'>
                   <NavLink className='nav-link' activeClassName='active' to='/register'>
                     Register
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className='nav-item'>
+                  <NavLink
+                    className='nav-link text-capitalize'
+                    activeClassName='active'
+                    to='/users'
+                  >
+                    users
+                  </NavLink>
+                </li>
+                <li className='nav-item'>
+                  <NavLink
+                    className='nav-link'
+                    activeClassName='active'
+                    to='/login'
+                    onClick={handleLogout}
+                  >
+                    Logout
                   </NavLink>
                 </li>
               </>

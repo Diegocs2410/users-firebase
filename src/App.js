@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import app from './configs/firebaseConfig';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
