@@ -1,14 +1,14 @@
+// Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-// Firebase Config
+
 const firebaseConfig = {
-  // Environments variables
-  apiKey: process.env.FIREBASE_VAR_AUTHDOMAIN,
-  authDomain: process.env.FIREBASE_VAR_APIKEY,
-  projectId: process.env.FIREBASE_VAR_PROJECTID,
-  storageBucket: process.env.FIREBASE_VAR_STORAGEBUCKET,
-  messagingSenderId: process.env.FIREBASE_VAR_MESSAGINGSENDERID,
-  appId: process.env.FIREBASE_VAR_APPID,
-  measurementId: process.env.FIREBASE_VAR_MEASUREMENTID,
+  apiKey: 'AIzaSyACefJ6nnh2i4NGbGBLWI9bN0qqV10DPlk',
+  authDomain: 'talentusers-88cbe.firebaseapp.com',
+  projectId: 'talentusers-88cbe',
+  storageBucket: 'talentusers-88cbe.appspot.com',
+  messagingSenderId: '931153830740',
+  appId: '1:931153830740:web:f754b335dd6fb655a41ec1',
+  measurementId: 'G-Y789HXM298',
 };
 
 // Initialize Firebase

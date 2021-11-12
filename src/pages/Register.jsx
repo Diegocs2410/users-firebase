@@ -1,29 +1,27 @@
 import { useState } from 'react';
-import { Container, Button, Card, Form } from 'react-bootstrap';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Card, Container, Form, Button } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
 import useAuth from '../context/AuthContext';
 
-const Login = () => {
+export const Register = () => {
   // States
   const [email, setEmail] = useState('diego@diego.com');
   const [password, setPassword] = useState('123456');
 
   // UseContext
-  const { login } = useAuth();
+  const { register, userData } = useAuth();
   const history = useHistory(); // History
 
   // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(email, password, history);
+    register(email, password, history);
   };
-
   return (
     <Container fluid='md' className='d-flex justify-content-center align-items-center min-vh-100'>
       <Card style={{ width: '21rem' }} className='shadow-lg p-3'>
         <Card.Body>
-          <Card.Title className='text-center text-capitalize fs-1'>login</Card.Title>
+          <Card.Title className='text-center text-capitalize fs-1'>register new user</Card.Title>
           <Form onSubmit={handleSubmit}>
             <Form.Group className='mb-3' controlId='formBasicEmail'>
               <Form.Label>Email address</Form.Label>
@@ -47,8 +45,8 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
-            <Link to='/register' className='nav-item'>
-              Haven't an account yet? create one!
+            <Link to='/login' className='nav-item'>
+              already have an account? sign in
             </Link>
             <Button className='mt-2 form-control' variant='primary' type='submit'>
               Login
@@ -59,5 +57,3 @@ const Login = () => {
     </Container>
   );
 };
-
-export default Login;

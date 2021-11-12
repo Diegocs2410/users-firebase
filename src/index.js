@@ -5,6 +5,7 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import { AuthProvider } from './context/AuthContext';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
