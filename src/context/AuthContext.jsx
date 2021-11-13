@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import app from '../configs/firebaseConfig';
+// eslint-disable-next-line
+import { app, db } from '../configs/firebaseConfig';
+import { collection, getDocs } from 'firebase/firestore/lite';
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -8,16 +10,18 @@ import {
   signInWithPopup,
   signOut,
   onAuthStateChanged,
-  signInWithRedirect,
 } from 'firebase/auth';
 
 const AuthContext = createContext();
 const initialUser = {};
+
 export const AuthProvider = (props) => {
   const [isLogged, setIsLogged] = useState(false);
   const [userData, setuserData] = useState(initialUser);
   const provider = new GoogleAuthProvider();
+  const [lsUsers, setLsUsers] = useState([]);
   const auth = getAuth();
+
   const login = (email, password, history) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -72,7 +76,7 @@ export const AuthProvider = (props) => {
         const user = result.user;
         // ...
         console.log('Signed in as: ', user, token);
-        signInWithRedirect(auth, provider);
+        setIsLogged(true);
         history.push('/users');
       })
       .catch((error) => {
@@ -84,8 +88,20 @@ export const AuthProvider = (props) => {
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
+        console.log('error', errorCode, errorMessage, email, credential);
       });
   };
+
+  const fetchUsers = async () => {
+    const querySnapshot = await getDocs(collection(db, 'users'));
+    querySnapshot.forEach((doc) => {
+      setLsUsers((prevState) => [...prevState, { id: doc.id, data: doc.data() }]);
+    });
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -100,7 +116,8 @@ export const AuthProvider = (props) => {
         // ...
       }
     });
-  }, []);
+  }, [auth]);
+
   const value = {
     isLogged,
     setIsLogged,
@@ -109,6 +126,8 @@ export const AuthProvider = (props) => {
     register,
     loginWithGoogle,
     logout,
+    fetchUsers,
+    lsUsers,
   };
 
   return <AuthContext.Provider value={value} {...props} />;

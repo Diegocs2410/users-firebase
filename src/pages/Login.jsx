@@ -56,11 +56,7 @@ const Login = () => {
             <Button className='mt-2 form-control' variant='primary' type='submit'>
               Login
             </Button>
-            <Button
-              className='mt-2 form-control'
-              variant='secondary'
-              onClick={handleGoogleLogin}
-            >
+            <Button className='mt-2 form-control' variant='secondary' onClick={handleGoogleLogin}>
               Google
             </Button>
           </Form>
